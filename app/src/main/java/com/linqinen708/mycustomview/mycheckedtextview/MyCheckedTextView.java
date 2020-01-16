@@ -79,6 +79,8 @@ public class MyCheckedTextView extends AppCompatTextView implements Checkable {
     private GradientDrawable mNormalGradientDrawable;
     private GradientDrawable mCheckedGradientDrawable;
     private boolean mChecked;
+    /**因为attrs中名称是mtv_checked，如果使用databinding，需要名称一致*/
+    private boolean mtv_checked;
     private boolean mIsGradient;
 
     /**
@@ -463,6 +465,15 @@ public class MyCheckedTextView extends AppCompatTextView implements Checkable {
         //父类已经有refreshDrawableState()方法了，所以不需要再重复一遍
 //        refreshDrawableState();
 
+    }
+
+    public boolean isMtv_checked() {
+        return isChecked();
+    }
+
+    public void setMtv_checked(boolean mtv_checked) {
+        this.mtv_checked = mtv_checked;
+        setChecked(mtv_checked);
     }
 
     @Override
