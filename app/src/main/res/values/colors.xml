@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="white_ffffff">#ffffff</color>
+    <color name="white_F9F9F9">#F9F9F9</color>
+    <color name="black_333333">#333333</color>
+    <color name="black_35383e">#35383e</color>
+    <color name="gray_55000000">#55000000</color>
+    <color name="gray_5B5E63">#5B5E63</color>
+    <color name="gray_EEEEEE">#EEEEEE</color>
+    <color name="gray_999999">#999999</color>
+    <color name="gray_D5D5D5">#D5D5D5</color>
+    <color name="gray_8C9198">#8C9198</color>
+    <color name="gray_F2F3F5">#F2F3F5</color>
+    <color name="gray_717171">#717171</color>
+    <color name="gray_f7f6fb">#f7f6fb</color>
+    <color name="gray_f5f5f5">#f5f5f5</color>
+    <color name="gray_D9D9D9">#D9D9D9</color>
+
+    <color name="green_56CC8D">#56CC8D</color>
+    <color name="green_61A71F">#61A71F</color>
+    <color name="green_69AE28">#69AE28</color>
+    <color name="green_5FA51F">#5FA51F</color>
+
+
+
+    <color name="pink_FF99A4">#FF99A4</color>
+
+    <color name="red_E66051">#E66051</color>
+    <color name="red_F8534B">#F8534B</color>
+    <color name="red_FF0000">#FF0000</color>
+
+    <color name="brown_A85D23">#A85D23</color>
+
+
+    <color name="yellow_F9F1DC">#F9F1DC</color>
+
+    <color name="black_323232">#323232</color>
+    <color name="gray_c1c7d3">#c1c7d3</color>
+    <color name="gray_e5eaf2">#e5eaf2</color>
+    <color name="gray_f8f9fb">#f8f9fb</color>
+    <color name="gray_f1f2f4">#f1f2f4</color>
+    <color name="gray_737780">#737780</color>
+    <color name="gray_dddddd">#DDDDDD</color>
+
+    <color name="blue_DEF0FE">#DEF0FE</color>
+    <color name="blue_98cbff">#98cbff</color>
+    <color name="blue_8daef3">#8DAEF3</color>
+    <color name="blue_008FFF">#008FFF</color>
+    <color name="blue_0a57f3">#0a57f3</color>
+</resources>

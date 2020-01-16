@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/tv_enable"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_margin="10dp"
+        android:background="@color/gray_D5D5D5"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:padding="5dp"
+        android:text="点击改变MyCheckedTextView状态为enable"
+        android:textColor="@color/black_35383e" />
+
+    <TextView
+        android:id="@+id/tv_unable"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_margin="10dp"
+        android:background="@color/gray_D5D5D5"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:padding="5dp"
+        android:text="点击改变MyCheckedTextView状态为unable"
+        android:textColor="@color/black_35383e" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="温馨提示：轻轻按压触发press，直接点击触发check效果"
+        />
+
+    <com.linqinen708.mycustomview.mycheckedtextview.MyCheckedTextView
+        android:id="@+id/mtv_001"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:text="确定"
+        app:mtv_checked_solid_color="@color/blue_8daef3"
+        app:mtv_checked_stroke_color="@color/blue_8daef3"
+        app:mtv_checked_text_color="@color/white_ffffff"
+        app:mtv_pressed_solid_color="@color/green_5FA51F"
+        app:mtv_pressed_stroke_color="@color/green_5FA51F"
+        app:mtv_pressed_text_color="@color/yellow_F9F1DC"
+        app:mtv_solid_color="@color/yellow_F9F1DC"
+        app:mtv_stroke_color="@color/red_E66051"
+        app:mtv_stroke_width="2dp"
+        app:mtv_unable_solid_color="@color/gray_D5D5D5"
+        app:mtv_unable_stroke_color="@color/gray_D5D5D5"
+        app:mtv_unable_text_color="@color/white_ffffff" />
+
+</LinearLayout>
