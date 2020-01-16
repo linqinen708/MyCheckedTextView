@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="MyCheckedTextView">
+        <!-- 代替原来的四个角位置的Drawable，修复矢量图5.0以下崩溃的bug，并且可自定义其宽高 -->
+        <attr name="mtv_drawable_start" format="reference" />
+        <attr name="mtv_drawable_end" format="reference" />
+        <attr name="mtv_drawable_top" format="reference" />
+        <attr name="mtv_drawable_bottom" format="reference" />
+        <attr name="mtv_drawable_start_width" format="dimension" />
+        <attr name="mtv_drawable_end_width" format="dimension" />
+        <attr name="mtv_drawable_top_width" format="dimension" />
+        <attr name="mtv_drawable_bottom_width" format="dimension" />
+        <attr name="mtv_drawable_start_height" format="dimension" />
+        <attr name="mtv_drawable_end_height" format="dimension" />
+        <attr name="mtv_drawable_top_height" format="dimension" />
+        <attr name="mtv_drawable_bottom_height" format="dimension" />
+
+        <!-- 背景图圆角以及上下左右四个方向的圆角弧度 -->
+        <attr name="mtv_radius" format="dimension" />
+        <attr name="mtv_radius_left_top" format="dimension" />
+        <attr name="mtv_radius_left_bottom" format="dimension" />
+        <attr name="mtv_radius_right_top" format="dimension" />
+        <attr name="mtv_radius_right_bottom" format="dimension" />
+
+        <!-- 填充色，设置了mtv_is_gradient为true时无效 -->
+        <attr name="mtv_solid_color" format="color" />
+        <!-- 边框宽度 -->
+        <attr name="mtv_stroke_width" format="dimension" />
+        <!-- 边框填充色 -->
+        <attr name="mtv_stroke_color" format="color" />
+        <!-- ripple颜色 -->
+        <attr name="mtv_ripple" format="color" />
+        <!-- 处于选中状态的填充色 -->
+        <attr name="mtv_checked_solid_color" format="color" />
+        <!-- 处于选中状态的边框颜色 -->
+        <attr name="mtv_checked_stroke_color" format="color" />
+        <!-- 无法点击状态的填充色 -->
+        <attr name="mtv_unable_solid_color" format="color" />
+        <!-- 无法点击状态的边框颜色 -->
+        <attr name="mtv_unable_stroke_color" format="color" />
+        <!-- 无法点击状态的填充色 -->
+        <attr name="mtv_pressed_solid_color" format="color" />
+        <!-- 无法点击状态的边框颜色 -->
+        <attr name="mtv_pressed_stroke_color" format="color" />
+
+        <attr name="mtv_unable_text_color" format="color" />
+        <attr name="mtv_pressed_text_color" format="color" />
+        <attr name="mtv_checked_text_color" format="color" />
+
+        <!-- 背景形状 -->
+        <attr name="mtv_shape" format="enum">
+            <enum name="rectangle" value="1" />
+            <enum name="oval" value="2" />
+        </attr>
+        <!--         是否开启水波纹 -->
+        <!--        <attr name="mtv_is_ripple" format="boolean" />-->
+        <!-- 是否开启渐变 -->
+        <attr name="mtv_is_gradient" format="boolean" />
+        <!-- 渐变中心颜色 -->
+        <attr name="mtv_gradient_center_color" format="color" />
+        <!-- 渐变开始的颜色 -->
+        <attr name="mtv_gradient_start_color" format="color" />
+        <!-- 渐变结束的颜色 -->
+        <attr name="mtv_gradient_end_color" format="color" />
+        <!-- 渐变的Radius -->
+        <attr name="mtv_gradient_radius" format="dimension" />
+        <!-- 渐变的类型 -->
+        <attr name="mtv_gradient_type" format="enum">
+            <enum name="linear" value="0" />
+            <enum name="radial" value="1" />
+            <enum name="sweep" value="2" />
+        </attr>
+        <!-- 渐变的方向 -->
+        <attr name="mtv_gradient_orientation" format="enum">
+            <enum name="top_bottom" value="0" />
+            <enum name="tr_bl" value="1" />
+            <enum name="right_left" value="2" />
+            <enum name="br_tl" value="3" />
+            <enum name="bottom_top" value="4" />
+            <enum name="bl_tr" value="5" />
+            <enum name="left_right" value="6" />
+            <enum name="tl_br" value="7" />
+        </attr>
+    </declare-styleable>
+
+
+</resources>
