@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private MyCheckedTextView mtv001;
+    private MyCheckedTextView mtv001,mtv002;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mtv001 = findViewById(R.id.mtv_001);
+        mtv002 = findViewById(R.id.mtv_002);
 
     }
 
@@ -28,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.mtv_001:
                 mtv001.toggle();
+                break;
+            case R.id.mtv_002:
+                mtv002.toggle();
                 break;
             default:
                 break;

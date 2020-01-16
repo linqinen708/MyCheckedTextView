@@ -2,6 +2,15 @@
 <resources>
 
     <declare-styleable name="MyCheckedTextView">
+
+        <attr name="mtv_checked" format="boolean" />
+
+        <attr name="mtv_checked_drawable" format="reference" />
+        <attr name="mtv_pressed_drawable" format="reference" />
+        <attr name="mtv_unable_drawable" format="reference" />
+        <attr name="mtv_normal_drawable" format="reference" />
+
+
         <!-- 代替原来的四个角位置的Drawable，修复矢量图5.0以下崩溃的bug，并且可自定义其宽高 -->
         <attr name="mtv_drawable_start" format="reference" />
         <attr name="mtv_drawable_end" format="reference" />

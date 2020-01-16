@@ -27,8 +27,6 @@ import androidx.core.content.ContextCompat;
 
 /**
  * Created by Ian on 2020/1/6.
- * GradientDrawable  https://www.jianshu.com/p/0fc589752781
- * <p>
  * 状态选择 https://blog.csdn.net/qq_31796651/article/details/75010332
  */
 public class MyCheckedTextView extends AppCompatTextView implements Checkable {
@@ -71,10 +69,15 @@ public class MyCheckedTextView extends AppCompatTextView implements Checkable {
     private int mRadiusBottomRight;
     private int mShape;
 
-    private GradientDrawable mUnableDrawable;
-    private GradientDrawable mPressedDrawable;
-    private GradientDrawable mNormalDrawable;
-    private GradientDrawable mCheckedDrawable;
+    private Drawable mUnableDrawable;
+    private Drawable mPressedDrawable;
+    private Drawable mNormalDrawable;
+    private Drawable mCheckedDrawable;
+
+    private GradientDrawable mUnableGradientDrawable;
+    private GradientDrawable mPressedGradientDrawable;
+    private GradientDrawable mNormalGradientDrawable;
+    private GradientDrawable mCheckedGradientDrawable;
     private boolean mChecked;
     private boolean mIsGradient;
 
@@ -113,7 +116,7 @@ public class MyCheckedTextView extends AppCompatTextView implements Checkable {
 
     @Override
     protected int[] onCreateDrawableState(int extraSpace) {
-        LogT.i("extraSpace:" + extraSpace);
+//        LogT.i("extraSpace:" + extraSpace);
         final int[] drawableState = super.onCreateDrawableState(extraSpace + 1);
         if (isEnabled()) {
             if (isChecked()) {
@@ -180,6 +183,8 @@ public class MyCheckedTextView extends AppCompatTextView implements Checkable {
         initCompoundDrawables(context, typedArray);
         initRadius(typedArray);
 
+        mChecked = typedArray.getBoolean(R.styleable.MyCheckedTextView_mtv_checked, false);
+
         mSolidColor = typedArray.getColorStateList(R.styleable.MyCheckedTextView_mtv_solid_color);
         mCheckedSolidColor = typedArray.getColorStateList(R.styleable.MyCheckedTextView_mtv_checked_solid_color);
         mUnableSolidColor = typedArray.getColorStateList(R.styleable.MyCheckedTextView_mtv_unable_solid_color);
@@ -196,7 +201,6 @@ public class MyCheckedTextView extends AppCompatTextView implements Checkable {
         mCheckedTextColor = typedArray.getColorStateList(R.styleable.MyCheckedTextView_mtv_checked_text_color);
         mUnableTextColor = typedArray.getColorStateList(R.styleable.MyCheckedTextView_mtv_unable_text_color);
 
-//        isRipple = typedArray.getBoolean(R.styleable.MyCheckedTextView_mtv_is_gradient, false);
         mIsGradient = typedArray.getBoolean(R.styleable.MyCheckedTextView_mtv_is_gradient, false);
         mGradientCenterColor = typedArray.getColorStateList(R.styleable.MyCheckedTextView_mtv_gradient_center_color);
         mGradientStartColor = typedArray.getColor(R.styleable.MyCheckedTextView_mtv_gradient_start_color, Color.TRANSPARENT);
@@ -205,10 +209,16 @@ public class MyCheckedTextView extends AppCompatTextView implements Checkable {
         mGradientType = typedArray.getInteger(R.styleable.MyCheckedTextView_mtv_gradient_type, GradientDrawable.LINEAR_GRADIENT);
         mGradientOrientation = typedArray.getInteger(R.styleable.MyCheckedTextView_mtv_gradient_orientation, 0);
 
-        mPressedDrawable = buildGradientDrawable(mPressedSolidColor, mPressedStrokeColor);
-        mCheckedDrawable = buildGradientDrawable(mCheckedSolidColor, mCheckedStrokeColor);
-        mUnableDrawable = buildGradientDrawable(mUnableSolidColor, mUnableStrokeColor);
-        mNormalDrawable = buildNormalDrawable();
+        mPressedDrawable = typedArray.getDrawable(R.styleable.MyCheckedTextView_mtv_pressed_drawable);
+        mCheckedDrawable = typedArray.getDrawable(R.styleable.MyCheckedTextView_mtv_checked_drawable);
+        mUnableDrawable = typedArray.getDrawable(R.styleable.MyCheckedTextView_mtv_unable_drawable);
+        mNormalDrawable = typedArray.getDrawable(R.styleable.MyCheckedTextView_mtv_normal_drawable);
+
+
+        mPressedGradientDrawable = buildGradientDrawable(mPressedSolidColor, mPressedStrokeColor);
+        mCheckedGradientDrawable = buildGradientDrawable(mCheckedSolidColor, mCheckedStrokeColor);
+        mUnableGradientDrawable = buildGradientDrawable(mUnableSolidColor, mUnableStrokeColor);
+        mNormalGradientDrawable = buildNormalDrawable();
 
 
         typedArray.recycle();
@@ -325,8 +335,9 @@ public class MyCheckedTextView extends AppCompatTextView implements Checkable {
     }
 
     private GradientDrawable buildGradientDrawable(ColorStateList solidColor, ColorStateList strokeColor) {
-        GradientDrawable gradientDrawable = new GradientDrawable();
+        GradientDrawable gradientDrawable = null;
         if (null != solidColor || null != strokeColor) {
+            gradientDrawable = new GradientDrawable();
             setDrawableShape(gradientDrawable);
             //1、2两个参数表示左上角，3、4表示右上角，5、6表示右下角，7、8表示左下角
             gradientDrawable.setCornerRadii(new float[]{mRadiusTopLeft, mRadiusTopLeft, mRadiusTopRight, mRadiusTopRight, mRadiusBottomRight, mRadiusBottomRight, mRadiusBottomLeft, mRadiusBottomLeft});
@@ -409,38 +420,38 @@ public class MyCheckedTextView extends AppCompatTextView implements Checkable {
         /*点击的水波纹，如果触发了水波纹效果，则mPressedDrawable 就不会起作用*/
         if (mRippleColor != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             /*mask 是水波纹的范围的drawable，如果不设置，会以控件宽高中的较大值为直径绘制水波纹*/
-            return new RippleDrawable(mRippleColor, mNormalDrawable, null);
-        } else if (null == mCheckedDrawable && null == mPressedDrawable && null == mUnableDrawable) {
+            return new RippleDrawable(mRippleColor, mNormalGradientDrawable, null);
+        } /*else if (null == mCheckedGradientDrawable && null == mPressedGradientDrawable && null == mUnableGradientDrawable) {
             LogT.i("没有任何状态的背景:");
-            return mNormalDrawable;
-        } else {
+            return mNormalGradientDrawable;
+        }*/ else {
             LogT.i("状态StateListDrawable:");
             /*自己研究发现，优先顺序很重要，如果满足条件一，就不会再执行之后的状态判断，
              *所以要先判断press和check属性，否则会导致颜色无效
              *经测试，如果enable状态先判断，则press和check都不会触发
              */
             StateListDrawable backgroundDrawable = new StateListDrawable();
-            backgroundDrawable.addState(new int[]{android.R.attr.state_pressed}, mPressedDrawable);
-            backgroundDrawable.addState(new int[]{android.R.attr.state_checked}, mCheckedDrawable);
-            backgroundDrawable.addState(new int[]{android.R.attr.state_enabled}, mNormalDrawable);
-            backgroundDrawable.addState(new int[]{-android.R.attr.state_enabled}, mUnableDrawable);
+            backgroundDrawable.addState(new int[]{android.R.attr.state_pressed}, mPressedDrawable == null ? mPressedGradientDrawable : mPressedDrawable);
+            backgroundDrawable.addState(new int[]{android.R.attr.state_checked}, mCheckedDrawable == null ? mCheckedGradientDrawable : mCheckedDrawable);
+            backgroundDrawable.addState(new int[]{android.R.attr.state_enabled}, mNormalDrawable == null ? mNormalGradientDrawable : mNormalDrawable);
+            backgroundDrawable.addState(new int[]{-android.R.attr.state_enabled}, mUnableDrawable == null ? mUnableGradientDrawable : mUnableDrawable);
 
             return backgroundDrawable;
         }
     }
 
     private void resetRadius() {
-        if (null != mNormalDrawable) {
-            mNormalDrawable.setCornerRadii(new float[]{mRadiusTopLeft, mRadiusTopLeft, mRadiusTopRight, mRadiusTopRight, mRadiusBottomRight, mRadiusBottomRight, mRadiusBottomLeft, mRadiusBottomLeft});
+        if (null != mNormalGradientDrawable) {
+            mNormalGradientDrawable.setCornerRadii(new float[]{mRadiusTopLeft, mRadiusTopLeft, mRadiusTopRight, mRadiusTopRight, mRadiusBottomRight, mRadiusBottomRight, mRadiusBottomLeft, mRadiusBottomLeft});
         }
-        if (null != mCheckedDrawable) {
-            mCheckedDrawable.setCornerRadii(new float[]{mRadiusTopLeft, mRadiusTopLeft, mRadiusTopRight, mRadiusTopRight, mRadiusBottomRight, mRadiusBottomRight, mRadiusBottomLeft, mRadiusBottomLeft});
+        if (null != mCheckedGradientDrawable) {
+            mCheckedGradientDrawable.setCornerRadii(new float[]{mRadiusTopLeft, mRadiusTopLeft, mRadiusTopRight, mRadiusTopRight, mRadiusBottomRight, mRadiusBottomRight, mRadiusBottomLeft, mRadiusBottomLeft});
         }
-        if (null != mPressedDrawable) {
-            mPressedDrawable.setCornerRadii(new float[]{mRadiusTopLeft, mRadiusTopLeft, mRadiusTopRight, mRadiusTopRight, mRadiusBottomRight, mRadiusBottomRight, mRadiusBottomLeft, mRadiusBottomLeft});
+        if (null != mPressedGradientDrawable) {
+            mPressedGradientDrawable.setCornerRadii(new float[]{mRadiusTopLeft, mRadiusTopLeft, mRadiusTopRight, mRadiusTopRight, mRadiusBottomRight, mRadiusBottomRight, mRadiusBottomLeft, mRadiusBottomLeft});
         }
-        if (null != mUnableDrawable) {
-            mUnableDrawable.setCornerRadii(new float[]{mRadiusTopLeft, mRadiusTopLeft, mRadiusTopRight, mRadiusTopRight, mRadiusBottomRight, mRadiusBottomRight, mRadiusBottomLeft, mRadiusBottomLeft});
+        if (null != mUnableGradientDrawable) {
+            mUnableGradientDrawable.setCornerRadii(new float[]{mRadiusTopLeft, mRadiusTopLeft, mRadiusTopRight, mRadiusTopRight, mRadiusBottomRight, mRadiusBottomRight, mRadiusBottomLeft, mRadiusBottomLeft});
         }
 
     }
@@ -486,7 +497,7 @@ public class MyCheckedTextView extends AppCompatTextView implements Checkable {
     public void setGradient(boolean gradient) {
         if (mIsGradient != gradient) {
             mIsGradient = gradient;
-            mNormalDrawable = buildNormalDrawable();
+            mNormalGradientDrawable = buildNormalDrawable();
             setBackground(getFinalBackgroundDrawable());
         }
     }
@@ -548,7 +559,7 @@ public class MyCheckedTextView extends AppCompatTextView implements Checkable {
 
     public void setSolidColor(@ColorInt int solidColor) {
         mSolidColor = ColorStateList.valueOf(solidColor);
-        mNormalDrawable.setColor(solidColor);
+        mNormalGradientDrawable.setColor(solidColor);
         setBackground(getFinalBackgroundDrawable());
     }
 
@@ -564,7 +575,7 @@ public class MyCheckedTextView extends AppCompatTextView implements Checkable {
 
     public void setCheckedSolidColor(@ColorInt int checkedSolidColor) {
         mCheckedSolidColor = ColorStateList.valueOf(checkedSolidColor);
-        mCheckedDrawable.setColor(checkedSolidColor);
+        mCheckedGradientDrawable.setColor(checkedSolidColor);
         setBackground(getFinalBackgroundDrawable());
     }
 
@@ -580,7 +591,7 @@ public class MyCheckedTextView extends AppCompatTextView implements Checkable {
 
     public void setStrokeColor(@ColorInt int stokeColor) {
         mStrokeColor = ColorStateList.valueOf(stokeColor);
-        mNormalDrawable.setStroke(mStrokeWidth, stokeColor);
+        mNormalGradientDrawable.setStroke(mStrokeWidth, stokeColor);
         setBackground(getFinalBackgroundDrawable());
     }
 
@@ -591,7 +602,7 @@ public class MyCheckedTextView extends AppCompatTextView implements Checkable {
 
     public void setCheckedStrokeColor(@ColorInt int checkedStrokeColor) {
         mCheckedStrokeColor = ColorStateList.valueOf(checkedStrokeColor);
-        mCheckedDrawable.setStroke(mStrokeWidth, checkedStrokeColor);
+        mCheckedGradientDrawable.setStroke(mStrokeWidth, checkedStrokeColor);
         setBackground(getFinalBackgroundDrawable());
     }
 
@@ -606,14 +617,12 @@ public class MyCheckedTextView extends AppCompatTextView implements Checkable {
     }
 
 
-
-
     public void setStrokeWidth(int strokeWidth) {
         mStrokeWidth = strokeWidth;
-        mNormalDrawable.setStroke(strokeWidth, mStrokeColor != null ? mStrokeColor.getDefaultColor() : Color.TRANSPARENT);
-        mCheckedDrawable.setStroke(strokeWidth, mCheckedStrokeColor != null ? mCheckedStrokeColor.getDefaultColor() : Color.TRANSPARENT);
-        mPressedDrawable.setStroke(strokeWidth, mPressedStrokeColor != null ? mPressedStrokeColor.getDefaultColor() : Color.TRANSPARENT);
-        mUnableDrawable.setStroke(strokeWidth, mUnableStrokeColor != null ? mUnableStrokeColor.getDefaultColor() : Color.TRANSPARENT);
+        mNormalGradientDrawable.setStroke(strokeWidth, mStrokeColor != null ? mStrokeColor.getDefaultColor() : Color.TRANSPARENT);
+        mCheckedGradientDrawable.setStroke(strokeWidth, mCheckedStrokeColor != null ? mCheckedStrokeColor.getDefaultColor() : Color.TRANSPARENT);
+        mPressedGradientDrawable.setStroke(strokeWidth, mPressedStrokeColor != null ? mPressedStrokeColor.getDefaultColor() : Color.TRANSPARENT);
+        mUnableGradientDrawable.setStroke(strokeWidth, mUnableStrokeColor != null ? mUnableStrokeColor.getDefaultColor() : Color.TRANSPARENT);
 
         setBackground(getFinalBackgroundDrawable());
     }
@@ -639,7 +648,7 @@ public class MyCheckedTextView extends AppCompatTextView implements Checkable {
 
     public void setShape(@Shape int shape) {
         mShape = shape;
-        mNormalDrawable.setShape(shape);
+        mNormalGradientDrawable.setShape(shape);
         setBackground(getFinalBackgroundDrawable());
     }
 
